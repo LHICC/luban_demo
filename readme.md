@@ -70,7 +70,7 @@
 
 -   获取token
 
-    账号（type=account）
+    账号登录（type=account）
     ```bash
     curl --location --request GET 'http://localhost:7573/api/user/anno/token?account=editor_1&password=editor_1&type=account' \
     --header 'token: eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI4NTY5NjEwMTk0NzIyNTgzMDUiLCJhY2NvdW50IjoiZWRpdG9yXzEiLCJuYW1lIjoiZWRpdG9yXzEiLCJvcmdpZCI6ODU2OTU5ODY4MzU4MTA2MjA5LCJzdGF0aW9uaWQiOjg1Njk2MDEyNDY1OTQ0MTA4OSwiZXhwIjoxNzEwMTY4OTMyfQ.iwF0dKx1YRLswBGuUY5JiY5RjSFql7tIYnUBCrqlLooNztDOK9-R0CKHyXlHCucd9r0Ta29VjXYqiqd3D8GKFWCATs8UNZh1RYUxTFH1aQ_jBa8jiDpcyk2K_exYxuvtsaMJ-jXAcsmqoZ4GzL72_HyFNaZEqDx522mG-uvVqlA' \
@@ -78,7 +78,7 @@
     --header 'Accept: */*' \
     --header 'Connection: keep-alive'
     ```
-    ldap（type=LDAP）
+    ldap登录（type=LDAP）
     ```bash
     curl --location --request GET 'http://localhost:7573/api/user/anno/token?account=editor_1&password=editor_1&type=LDAP' \
     --header 'token: eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI4NTY5NjEwMTk0NzIyNTgzMDUiLCJhY2NvdW50IjoiZWRpdG9yXzEiLCJuYW1lIjoiZWRpdG9yXzEiLCJvcmdpZCI6ODU2OTU5ODY4MzU4MTA2MjA5LCJzdGF0aW9uaWQiOjg1Njk2MDEyNDY1OTQ0MTA4OSwiZXhwIjoxNzEwMTY4OTMyfQ.iwF0dKx1YRLswBGuUY5JiY5RjSFql7tIYnUBCrqlLooNztDOK9-R0CKHyXlHCucd9r0Ta29VjXYqiqd3D8GKFWCATs8UNZh1RYUxTFH1aQ_jBa8jiDpcyk2K_exYxuvtsaMJ-jXAcsmqoZ4GzL72_HyFNaZEqDx522mG-uvVqlA' \
