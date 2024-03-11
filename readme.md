@@ -29,7 +29,7 @@
         apps文件目录详情
 
         ![](./doc/readme/image_-PW3ZYxw_B.png)
-    2.  将`apps`文件上传服务器或虚拟机（根目录就行）
+    2.  将`apps`文件上传服务器或虚拟机（必须根目录）
     3.  进入`apps`文件中，执行`docker-compose up -d`
         ```bash
         cd /apps
