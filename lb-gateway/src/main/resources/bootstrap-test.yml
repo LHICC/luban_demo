@@ -1,0 +1,22 @@
+spring:
+  cloud:
+    nacos:
+      config:
+        #由于不能在 DockerCompose部署nacos服务服务时 去初始化配置中心的配置文件，所以这里使用个人服务器中的nacos来做配置中心
+        username: nacos
+        password: hulei
+        server-addr: ${lb.nacos.ip}:${lb.nacos.port}
+        namespace: ${lb.nacos.namespace}
+        file-extension: yml
+        shared-configs: #共享配置
+          - data-id: common.yml
+            group: DEFAULT_GROUP
+            refresh: false
+          - data-id: mysql.yml
+            group: DEFAULT_GROUP
+            refresh: false
+          - data-id: redis.yml
+            group: DEFAULT_GROUP
+            refresh: false
+      discovery:
+        server-addr: lb-nacos:8848

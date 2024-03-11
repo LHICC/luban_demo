@@ -1,0 +1,26 @@
+lb:
+  local-ip: ${LOCAL_IP:${spring.cloud.auth.ip-address}}   # docker部署时，需要指定， 表示的运行该服务的宿主机IP
+  nacos:
+    ip: ${NACOS_IP:47.96.166.60}
+    port: ${NACOS_PORT:8848}
+    namespace: ${NACOS_ID:75196d1a-50d1-4f0d-84ee-35b7fd7407cc}
+common:
+  swagger:
+    title: lb - 管理产品微服务接口文档
+    description: 该服务用于管理产品
+    version: ${application.version}
+    base-package: com.lb.product.controller
+
+spring:
+  application:
+    name: lb-product-server
+  main:
+    allow-circular-references: true #允许bean循环依赖
+  mvc:
+    pathmatch:
+      #解决异常：swagger Failed to start bean 'documentationPluginsBootstrapper'; nested exception is java.lang.NullPointerException
+      #因为Springfox使用的路径匹配是基于AntPathMatcher的，而Spring Boot 2.6.X使用的是PathPatternMatcher
+      matching-strategy: ant_path_matcher
+  profiles:
+#    active: local
+    active: test

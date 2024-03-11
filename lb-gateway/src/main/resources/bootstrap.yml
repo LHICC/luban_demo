@@ -1,0 +1,16 @@
+lb:
+  local-ip: ${LOCAL_IP:${spring.cloud.auth.ip-address}}
+  nacos:
+    ip: ${NACOS_IP:47.96.166.60}
+    port: ${NACOS_PORT:8848}
+    namespace: ${NACOS_ID:75196d1a-50d1-4f0d-84ee-35b7fd7407cc}
+
+spring:
+  main:
+    web-application-type: reactive
+    allow-bean-definition-overriding: true
+  application:
+    name: lb-gateway
+  profiles:
+#    active: local
+    active: test

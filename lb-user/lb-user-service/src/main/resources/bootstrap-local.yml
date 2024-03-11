@@ -1,0 +1,27 @@
+spring:
+  cloud:
+    nacos:
+      username: nacos
+      password: hulei
+      server-addr: ${lb.nacos.ip}:${lb.nacos.port}
+      config:
+        namespace: ${lb.nacos.namespace}
+        file-extension: yml
+        shared-configs: #共享配置
+          - data-id: common.yml
+            group: DEFAULT_GROUP
+            refresh: false
+          - data-id: mysql.yml
+            group: DEFAULT_GROUP
+            refresh: false
+          - data-id: redis.yml
+            group: DEFAULT_GROUP
+            refresh: false
+      discovery:
+        namespace: ${lb.nacos.namespace}
+  ldap:
+    urls: ldap://192.168.150.101:389
+    base: dc=example,dc=com
+    #    username: ou=acs,ou=componentaccounts,dc=platform,dc=xxxx,dc=com
+    username: cn=admin,dc=example,dc=com
+    password: 123456
