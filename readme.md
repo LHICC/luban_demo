@@ -10,7 +10,7 @@
         ![](./doc/readme/image_rRC1WzKuRf.png)
     2.  将项目打包，将生成的`app.jar`放到`apps`文件中的对应服务的文件夹（可以跳过）
 
-        需要先将基础模块执行`install`，然后执行其他模块
+        需要先将基础模块执行`install`，然后执行其他模块,执行后生成app.jar包
 
         ①lb-parent
 

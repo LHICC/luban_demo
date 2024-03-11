@@ -1,0 +1,73 @@
+version: "3.1"
+networks:
+  go-ldap-admin:
+    driver: bridge
+
+services:
+  lb-nacos:
+    image: nacos/nacos-server
+    # 容器名称
+    container_name: lb-nacos
+    environment:
+      MODE: standalone
+    ports:
+      - "8848:8848"
+
+  lb-mysql:
+    restart: always
+    image: mysql:8.0.18
+    container_name: lb-mysql
+    volumes:
+      - /apps/mysql/mydir:/mydir
+      - /apps/mysql/datadir:/var/lib/mysql
+      - /apps/mysql/conf/my.cnf:/etc/my.cnf
+      # 数据库还原目录 可将需要还原的sql文件放在这里
+      - /apps/mysql/source:/docker-entrypoint-initdb.d
+    environment:
+      - "MYSQL_ROOT_PASSWORD=123456"
+      - "MYSQL_DATABASE=root"
+      - "TZ=Asia/Shanghai"
+    ports:
+      # 使用宿主机的3306端口映射到容器的3306端口
+      # 宿主机：容器
+      - 3306:3306
+  lb-ldap:
+    image: osixia/openldap:1.5.0
+    container_name: lb-ldap
+    hostname: lb-ldap
+    restart: always
+    environment:
+      TZ: Asia/Shanghai
+      LDAP_ORGANISATION: "example.com"
+      LDAP_DOMAIN: "example.com"
+      LDAP_ADMIN_PASSWORD: "123456"
+    command: [ '--copy-service' ]
+    volumes:
+    #  - ./openldap/ldap/database:/var/lib/ldap  # 如果需要的话，可以配置挂载持久化目录
+    #  - ./openldap/ldap/config:/etc/ldap/slapd.d  # 如果需要的话，可以配置挂载持久化目录
+      - /apps/openldap/config:/container/service/slapd/assets/config/bootstrap/ldif/custom # 注意这里是目录挂载到目录
+    ports:
+      - 389:389
+
+  phpldapadmin:
+    image: osixia/phpldapadmin:0.9.0
+    container_name: go-ldap-admin-phpldapadmin
+    hostname: go-ldap-admin-phpldapadmin
+    restart: always
+    environment:
+      TZ: Asia/Shanghai # 设置容器时区与宿主机保持一致
+      PHPLDAPADMIN_HTTPS: "false" # 是否使用https
+      PHPLDAPADMIN_LDAP_HOSTS: lb-ldap # 指定LDAP容器名称
+    ports:
+      - 8085:80
+    # volumes:
+    #  - ./openldap/phpadmin:/var/www/phpldapadmin  # 如果需要的话，可以配置挂载持久化目录
+
+  userservice:
+    build: ./lb-user-service
+  productservice:
+    build: ./lb-product-service
+  gateway:
+    build: ./lb-gateway
+    ports:
+      - "7573:7573"

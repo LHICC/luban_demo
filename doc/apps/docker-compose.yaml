@@ -1,0 +1,47 @@
+version: "3.1"
+networks:
+  go-ldap-admin:
+    driver: bridge
+
+services:
+  lb-nacos:
+    image: nacos/nacos-server
+    # 容器名称
+    container_name: lb-nacos
+    environment:
+      MODE: standalone
+
+  lb-mysql:
+    restart: always
+    image: mysql:8.0.18
+    container_name: lb-mysql
+    volumes:
+      - /apps/mysql/mydir:/mydir
+      - /apps/mysql/datadir:/var/lib/mysql
+      - /apps/mysql/conf/my.cnf:/etc/my.cnf
+      - /apps/mysql/source:/docker-entrypoint-initdb.d
+    environment:
+      - "MYSQL_ROOT_PASSWORD=123456"
+      - "MYSQL_DATABASE=root"
+      - "TZ=Asia/Shanghai"
+  lb-ldap:
+    image: osixia/openldap:1.5.0
+    container_name: lb-ldap
+    hostname: lb-ldap
+    restart: always
+    environment:
+      TZ: Asia/Shanghai
+      LDAP_ORGANISATION: "example.com"
+      LDAP_DOMAIN: "example.com"
+      LDAP_ADMIN_PASSWORD: "123456"
+    command: [ '--copy-service' ]
+    volumes:
+      - /apps/openldap/config:/container/service/slapd/assets/config/bootstrap/ldif/custom # 注意这里是目录挂载到目录
+  userservice:
+    build: ./lb-user-service
+  productservice:
+    build: ./lb-product-service
+  gateway:
+    build: ./lb-gateway
+    ports:
+      - "7573:7573"
