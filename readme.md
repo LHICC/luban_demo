@@ -50,7 +50,7 @@
         lb-mysql→mysql服务
         lb-nacos→nacos服务
         ```
-        注意：因为nacos启动比较慢的原因，可能导致网关，用户，产品服务启动失败，需要重启服务
+        注意：因为nacos启动比较慢的原因，可能导致网关，用户，产品服务启动失败，需要重启服务（特别是网关）
         ```bash
         docker restart 容器CONTAINERID
         
