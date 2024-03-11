@@ -18,7 +18,7 @@
 
         ③lb-product/lb-product-entity
 
-        ④lb-user/lb-user-entitylb-user-api
+        ④lb-user/lb-user-entity
 
         ⑤lb-user/lb-user-api
 
