@@ -18,9 +18,9 @@
 
         ③lb-product/lb-product-entity
 
-        ④lb-user/lb-user-api
+        ④lb-user/lb-user-entitylb-user-api
 
-        ⑤lb-user/lb-user-entity
+        ⑤lb-user/lb-user-api
 
         ⑥其他模块可以随意
 -   运行（已经将三个服务打包并整理好可以直接运行）
